@@ -10,7 +10,24 @@ public:
 	void AsignarEdad(int edad);
 	int ObtenerEdad() const { return suEdad; }
 	void Incremento() { ++suEdad; }
-	const Gato & operator++ ();
+	const Gato & operator++ ();	
+	const Gato operator++(int x)
+	{
+		cout << "El argumento x es" << x << endl;
+		Gato temp(*this);
+		++suEdad;
+		return temp;
+	}
+	Gato& operator&(){
+		cout << "Entregando referencia con Edad:" << suEdad << endl;
+		return *this;
+	}
+
+	Gato Sumar(const Gato & rhs)
+	{
+		return Gato(suEdad + rhs.ObtenerEdad());
+	}
+
 private:
 	int suEdad;
 };
@@ -54,18 +71,18 @@ void compararfuncionalidadEdades(){
 	Gato otro = ++g;
 	cout << "El valor de otro: " << otro.ObtenerEdad();
 	cout << " y de g: " << g.ObtenerEdad() << endl;
-}
 
-Gato copia(){
-	Gato Pelusa = Gato(3);
-	Pelusa.AsignarEdad(7);
-	return Pelusa;
+	cout << "Operador posterior" << endl;
+	otro = g++; //Pierdo el valor anterior de otro (copia)
+	cout << "El valor de otro: " << otro.ObtenerEdad();
+	cout << " y de g: " << g.ObtenerEdad() << endl;	
 }
 
 int main(){
-	Gato gato = copia();
-	gato.AsignarEdad(8);
-	gato.AsignarEdad(14);
+	Gato gato = Gato(3), sumaedades;
+	//Gato& otro = gato&;
+	sumaedades = gato.Sumar(gato);
+	cout << "Su edad con operador +:" << sumaedades.ObtenerEdad() << endl;
     compararfuncionalidadEdades();
 	return 0;
 }
