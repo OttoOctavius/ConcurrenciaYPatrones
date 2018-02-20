@@ -4,13 +4,26 @@ using namespace std;
 
 class Gato{
 public:
+	Gato();
 	Gato(int edadInicial);
 	~Gato();
 	void AsignarEdad(int edad);
-	void Maullar();
+	int ObtenerEdad() const { return suEdad; }
+	void Incremento() { ++suEdad; }
+	const Gato & operator++ ();
 private:
 	int suEdad;
 };
+
+
+Gato::Gato(): suEdad(0){
+};
+
+const Gato & Gato::operator++()
+{
+++suEdad;
+return *this;
+}
 
 /* Cuando aparece Objeto::metodo, el Objeto importa los atributos
 no hay que usar this o alguna referencia
@@ -28,33 +41,31 @@ void Gato::AsignarEdad(int edad){
 	suEdad = edad;
 } 
 
-void Gato::Maullar(){
-	cout << "Miau " << suEdad << endl;
-}
-
-Gato* referencia(){
-	Gato *Pelusa = new Gato(3);
-	Pelusa->Maullar();
-	Pelusa->AsignarEdad(7);
-	Pelusa->Maullar();
-	return Pelusa;
+void compararfuncionalidadEdades(){
+	Gato g;
+	cout << "El valor de g es ";
+	cout << g.ObtenerEdad() << endl;
+	g.Incremento();
+	cout << "El valor de g es ";
+	cout << g.ObtenerEdad() << endl;
+	++g;
+	cout << "El valor de g es ";
+	cout << g.ObtenerEdad() << endl;
+	Gato otro = ++g;
+	cout << "El valor de otro: " << otro.ObtenerEdad();
+	cout << " y de g: " << g.ObtenerEdad() << endl;
 }
 
 Gato copia(){
 	Gato Pelusa = Gato(3);
-	Pelusa.Maullar();
 	Pelusa.AsignarEdad(7);
-	Pelusa.Maullar();
 	return Pelusa;
 }
 
 int main(){
 	Gato gato = copia();
 	gato.AsignarEdad(8);
-	gato.Maullar();
 	gato.AsignarEdad(14);
-	gato.Maullar();
-
-	//delete &gato; //Pelusa se libera por fin
+    compararfuncionalidadEdades();
 	return 0;
 }
