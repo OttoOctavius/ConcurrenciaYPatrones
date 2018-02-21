@@ -26,3 +26,36 @@ int main(int argc, char const *argv[]){
 
 	return 0;
 }
+
+int** crearMatrizGrande(int[4][2] h,int [4][2] m){
+    int** result = new int[8][8];
+
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            //Suponiendo que hombres-hombres no vale
+            result[i][j] = 0;
+        }
+        for(j=0;j<4;j++){
+            //hombres-mujeres
+            //si primera opcion de hombre es j->dar max
+            //si la segunda es j-> el min
+            //sino, dar nada o default
+            result[i][j+4] = 0;
+        }
+    }
+
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            //mujeres-hombres
+            //si primera opcion de mujer es j->dar max
+            //si la segunda es j-> el min
+            //sino, dar nada o default
+            result[i+4][j] = 0;
+        }
+        for(j=0;j<4;j++){
+            //Suponiendo que mujeres-mujeres no vale
+            result[i+4][j] = 0;
+        }
+    }
+    return res;
+}
