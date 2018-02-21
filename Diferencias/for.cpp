@@ -7,7 +7,7 @@ int main(int argc, char const *argv[]){
 	for(int contador=0;contador<8;contador++)
 		cout << "Ciclo\t " << contador << endl;
 
-	free(variable);
+	delete(variable);
 
 	return 0;
 }
