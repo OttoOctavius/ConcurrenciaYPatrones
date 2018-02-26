@@ -16,9 +16,17 @@ void g(){
     //Creo que al terminar y hacer destroy se termina
 }
 
-    int puntoA = 3, puntoB = 5,puntonulo = 0;
+/*
+ Implementar puntajes para tener un senso de los emparejamientos. El problema es de maximizar o minimizar
+ este. Debe haber una importancia en lo cuantitativo, una gran diferencia dara resultados distintos.
+ Analizar propiedades y explotarlas.
+*/
+const int puntoA = 3, puntoB = 5,puntonulo = 0;
+/* Mejor puntaje: Solo primer columna se satisface
+ Peor puntaje: Desde puntaje nulo, a elegir solo la segunda.*/
 
-int puntos(int persona[4][2],int cual,int pareja){
+int puntos(int persona,int cual,int pareja){
+    //Si persona fuera diccionario, comprobar si coincide la dic[clave] con "pareja"
     if( persona[cual][0] == pareja)
         return puntoA;
     if( persona[cual][1] == pareja)
@@ -26,6 +34,8 @@ int puntos(int persona[4][2],int cual,int pareja){
     //Etc si se formalizara
     return puntonulo; //El caso que no se cumple. Tiene que existir
 }
+
+int buscarparejas_con_un_thread(int** hombres,int** mujeres,int* parejas, int maximo);
 
 int main(int argc, char const *argv[]){
     int total = 0;
@@ -42,16 +52,26 @@ int main(int argc, char const *argv[]){
         {3,2},
         {1,0}
     };
-    
-    std::cout << puntos(hombres,0,0);
-/*
- Implementar puntajes para tener un senso de los emparejamientos. El problema es de maximizar o minimizar
- este. Debe haber una importancia en lo cuantitativo, una gran diferencia dara resultados distintos.
- Analizar propiedades y explotarlas.
- Mejor puntaje: Solo primer columna se satisface
- Peor puntaje: Solo la segunda.
+    int parejas[4]; //hombre 0,1,2,i con mujer parejas[i]
+    //std::cout << puntos(hombres,0,0);
 
-*/
+
 
 	return 0;
+}
+
+//Asignar el peor caso es peligroso, porque se podria escojer una solucion imposible
+int buscarparejas_con_un_thread(int** hombres,int** mujeres,int* parejas, int maximo){
+    int puntajes[maximo][maximo];
+    for(int i=0;i<maximo;i++){
+        for(int j=0;j<maximo;j++){
+            puntajes[i][j] = puntos(hombres,i,j) + puntos(mujeres,j,i);
+        }
+    }
+
+    for(int i=0;i<maximo;i++){
+        for(int j=0;j<maximo;j++){
+            puntajes[i][j] = puntos(hombres,i,j) + puntos(mujeres,j,i);
+        }
+    }
 }
