@@ -2,22 +2,30 @@
 #include<thread>
 #include<iostream>
 
-std::mutex m;
+std::mutex letrac,esperarc;
 
 void CE(){
-    m.lock();
+    letrac.lock();
     std::cout << 'C';
+    esperarc.unlock();
     std::cout << 'E';
 }
 
 void ARO(){
     std::cout << 'A';
-    m.unlock();
+    letrac.unlock();
+    esperarc.lock();
     std::cout << 'R';
     std::cout << 'O';
 }
 
 int main(){
+    std::cout << "Numero de threas" << std::thread::hardware_concurrency() << std::endl;
     std::cout << "Mostrar ACERO o ACREO"<< std::endl;
+        std::thread t1(CE), t2(ARO);   // run both functions at once
+        letrac.lock();
+        esperarc.lock();
+        t1.join();
+        t2.join();
     return 0;
 }
