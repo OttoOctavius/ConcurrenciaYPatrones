@@ -2,13 +2,15 @@
 #include<thread>
 #include<iostream>
 
-std::mutex letrac,esperarc;
+std::mutex letrac,esperarc,ultimaO;
 
 void CE(){
     letrac.lock();
     std::cout << 'C';
     esperarc.unlock();
+    ultimaO.lock();
     std::cout << 'E';
+    ultimaO.unlock();
 }
 
 void ARO(){
@@ -16,6 +18,7 @@ void ARO(){
     letrac.unlock();
     esperarc.lock();
     std::cout << 'R';
+    ultimaO.lock();
     std::cout << 'O';
 }
 
