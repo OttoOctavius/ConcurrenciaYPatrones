@@ -66,20 +66,14 @@ int** crearMatrizGrande(int[4][2] h,int [4][2] m){
         }
         for(j=0;j<4;j++){
             //hombres-mujeres
-            //si primera opcion de hombre es j->dar max
-            //si la segunda es j-> el min
-            //sino, dar nada o default
-            result[i][j+4] = 0;
+            result[i][j+4] = puntos(h,i,j);
         }
     }
 
     for(i=0;i<4;i++){
         for(j=0;j<4;j++){
             //mujeres-hombres
-            //si primera opcion de mujer es j->dar max
-            //si la segunda es j-> el min
-            //sino, dar nada o default
-            result[i+4][j] = 0;
+            result[i+4][j] = puntos(m,i,j);
         }
         for(j=0;j<4;j++){
             //Suponiendo que mujeres-mujeres no vale

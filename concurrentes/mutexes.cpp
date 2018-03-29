@@ -42,7 +42,7 @@ int main1(){
     for(unsigned i=0;i<5;++i){
         std::cout<<"In main()"<<std::endl;
         std::this_thread::sleep_for( std::chrono::seconds(1));
-        }
-        m.unlock();
-        t.join();
+    }
+    m.unlock();
+    t.join();
 }
