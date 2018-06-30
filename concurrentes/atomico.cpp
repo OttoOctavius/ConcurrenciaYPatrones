@@ -45,5 +45,3 @@ int main(){
     cout << "Devolvio: " << a.get() << endl;
     return 0;
 }
-
-/*Use async to solve the sum of squares problem. Iterate up to 20 and add your future<int> objects to a vector<future<int>>. Then, finally iterate all your futures and retrieve the value and add it to your accumulator. This should be only a few modifications from the code above.*/
