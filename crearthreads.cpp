@@ -9,13 +9,13 @@ void do_some_work(){
 
 class background_task
 {
-public:
-    void operator()() const
-     {
-        do_some_work();
-        //do_something_else();
-     }
-    };
+    public:
+        void operator()() const
+        {
+            do_some_work();
+            //do_something_else();
+        }
+};
     
 background_task f;
 std::thread my_thread(f); //Valen threads con objetos, y tambeien globales?!?!
