@@ -28,10 +28,10 @@ void h(int i){
 }
 
 int main(){
-    std::vector<std::mutex> tenedores = {std::mutex,std::mutex,std::mutex,std::mutex} 
+    std::vector<std::mutex> tenedores = {std::mutex,std::mutex,std::mutex,std::mutex}; 
+    
     std::unique_lock<std::mutex> guard(m);
     std::thread t(h,1);
-    std::cout<<"In main()"<<std::endl;
     std::this_thread::sleep_for( std::chrono::seconds(1));
     guard.unlock(); t2.join(); t.join();
 
