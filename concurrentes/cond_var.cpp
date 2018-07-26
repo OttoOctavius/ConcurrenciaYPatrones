@@ -51,10 +51,10 @@ int main(){
     std::cout << "Numero de threas:" << std::thread::hardware_concurrency() << std::endl;
     std::vector<int32_t> vec{1,2,3,4};
     Threadsito th(vec.capacity());
-
-	std::thread t(th);
-    
     std::cout << "::Dentro del main::" << std::endl;
+	std::thread t{th};
+    
+    
     for(auto ite:vec){
         push(ite);
     }
