@@ -2,6 +2,8 @@
 #include<thread>
 #include<iostream>
 
+//define((x) := (y)) = auto x = y;
+
 std::mutex letrac,esperarc,ultimaO;
 
 void CE(){
@@ -22,13 +24,27 @@ void ARO(){
     std::cout << 'O';
 }
 
-int main(){
-    std::cout << "Numero de threas" << std::thread::hardware_concurrency() << std::endl;
+void ACEROoACREO(){
     std::cout << "Mostrar ACERO o ACREO"<< std::endl;
-        std::thread t1(CE), t2(ARO);   // run both functions at once
+        std::thread t1(CE), t2(ARO);
         letrac.lock();
         esperarc.lock();
         t1.join();
         t2.join();
+}
+
+void donantes(int cantidad){
+    std::thread realizarExtracciones( [cantidad](){
+        int pacientes = cantidad;
+        while(pacientes != 0){
+            pacientes--;
+        }
+    });
+    realizarExtracciones.join();
+}
+
+int main(){
+    ACEROoACREO();
+    donantes(4);
     return 0;
 }

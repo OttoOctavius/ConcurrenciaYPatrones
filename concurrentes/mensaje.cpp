@@ -26,6 +26,7 @@ int main()
     s.registerFunc("method2",&SomeClass::method2);
     s.sendMesg("method1");
     s.sendMesg("method2");
+    s.sendMesg("method3");
 }
 
 //La unica forma de tener polimorfismo es por punteros void, o usar templates.
