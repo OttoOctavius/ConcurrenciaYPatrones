@@ -38,8 +38,23 @@ void donantes(int cantidad){
         int pacientes = cantidad;
         while(pacientes != 0){
             pacientes--;
+            /*
+            releaseCamilla()
+            sleep()
+            aquireCamilla()*/
         }
     });
+
+    /*
+    thread donante{
+    while(!atendido)
+    if(camilla)
+        if turno == n releaseRevista
+    if(!revista)
+        cronica()
+    else
+        revista.acquire();
+    }*/
     realizarExtracciones.join();
 }
 
