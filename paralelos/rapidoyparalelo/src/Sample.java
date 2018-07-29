@@ -1,3 +1,5 @@
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import java.util.List;
 import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
@@ -10,7 +12,7 @@ public class Sample {
     }
 
     private static int printIt(int i){
-        System.out.println(i);
+        System.out.println("El thread N°" + Thread.currentThread().toString() + String.format(" tiene el numero %d" ,i ));
         return 0;
     }
 
@@ -29,12 +31,11 @@ public class Sample {
                 .filter(e -> e%2==0)
                 .mapToInt(e -> e*2)
                 .sum();
-
+        System.out.println(String.format("Los impares multiplicados por dos tienen suma:%d", x));
         numbers.stream()
-                .parallel()
-                //.forEach( e -> {System.out.println(e);return e;})
-                .mapToInt( e -> e*2)
-                .sum();
+                .parallel() //cambia el efecto al usarlo
+                .map( Sample::printIt)
+                .forEach(e->{}); //Si esta linea no esta no se imprime nada!!->es Lazy
     }
 
 }
