@@ -55,6 +55,7 @@
         "numeric": "cpp",
         "random": "cpp",
         "xthread": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "xtree": "cpp"
     }
 }
