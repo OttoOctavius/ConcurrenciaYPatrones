@@ -17,11 +17,20 @@ public class Sample {
     }
 
     public static void main(String[] args){
-        List<Integer> numbers= Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+        Sample sample = new Sample();
+        sample.stremeararregloenformaparalela();
+    }
+
+    public Sample(){
+        numbers= Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+        futuro = CompletableFuture.completedFuture(10);
+    }
+
+    public void stremeararregloenformaparalela(){
         int x;
         ForkJoinPool pool = new ForkJoinPool(10);
         ForkJoinPool pool2 =new ForkJoinPool(5);
-        CompletableFuture<Integer> futuro = CompletableFuture.supplyAsync(Sample::generador,pool);
+        this.futuro = CompletableFuture.supplyAsync(Sample::generador,pool);
 
         //Sleep.sleep(1000);
         futuro.thenAcceptAsync(Sample::printIt,pool2);
@@ -38,4 +47,6 @@ public class Sample {
                 .forEach(e->{}); //Si esta linea no esta no se imprime nada!!->es Lazy
     }
 
+    private List<Integer> numbers;
+    private CompletableFuture<Integer> futuro;
 }
