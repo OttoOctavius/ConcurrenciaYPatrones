@@ -19,6 +19,7 @@ public class Sample {
     public static void main(String[] args){
         Sample sample = new Sample();
         sample.stremeararregloenformaparalela();
+        sample.promesascumplidasporunsolothread();
     }
 
     public Sample(){
@@ -46,6 +47,25 @@ public class Sample {
                 .map( Sample::printIt)
                 .forEach(e->{}); //Si esta linea no esta no se imprime nada!!->es Lazy
     }
+
+    public void promesascumplidasporunsolothread(){
+        this.futuro = CompletableFuture.supplyAsync( () -> {try{TimeUnit.MILLISECONDS.sleep(100);
+                                                                return 2;
+                                                            }
+                                                            catch (Exception e){} return 3; });
+        int x=0;
+        System.out.println("Promesa del main");
+        if(this.futuro.isDone()){
+            x=this.futuro.getNow(3);
+        } else try {x=this.futuro.get();} catch (Exception e){}
+        System.out.println( String.format("Dio %d",x));
+    }
+
+    public void promesarepetitiva(){
+        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(Sample::generador, 0, 1, TimeUnit.SECONDS);
+    }
+
 
     private List<Integer> numbers;
     private CompletableFuture<Integer> futuro;
