@@ -19,7 +19,7 @@ class Barrer {
         try{
             cant ++;
             while(cant < max)
-                this->cv.wait(mu);
+                this->cv.wait(std::unique_lock(mu));
         } catch(...){}
         
         this->cv.notify_all();
