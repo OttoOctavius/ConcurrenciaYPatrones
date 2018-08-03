@@ -1,4 +1,5 @@
 import org.omg.PortableServer.THREAD_POLICY_ID;
+import scala.concurrent.Promise;
 
 import java.util.List;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public class Sample {
         Sample sample = new Sample();
         sample.stremeararregloenformaparalela();
         sample.promesascumplidasporunsolothread();
+        sample.promesarepetitiva();
     }
 
     public Sample(){
@@ -63,7 +65,9 @@ public class Sample {
 
     public void promesarepetitiva(){
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(Sample::generador, 0, 1, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate( () -> System.out.println("Ejecutando"), 0, 1, TimeUnit.SECONDS);
+
+        //executorService.shutdown();
     }
 
 
