@@ -1,4 +1,9 @@
 
+#ifndef __BUFFER__
+
+#define __BUFFER__
+
+#include<sstream>
 #include<iostream>
 #include<string>
 #include <condition_variable>
@@ -6,7 +11,7 @@
 
 class Buffer {
     int *buffer;
-    std::string[] num;
+    std::stringstream numeros;
     std::condition_variable cv;
     std::mutex mu;
     int leido = 1;
@@ -14,9 +19,9 @@ class Buffer {
     int count;
     
     public:
-    Buffer(int capacidad,std::string[] numerosStr, int cantidadthreads) {
+    Buffer(int capacidad,std::string numerosStr, int cantidadthreads) {
         this->capacidad = capacidad;
-        this->num = numerosStr;
+        this->numeros = std::stringstream(numerosStr);
 
         buffer = new int[capacidad];
         this->capacidad = capacidad;
@@ -34,7 +39,7 @@ class Buffer {
             }
         */
 
-        if( leido == this->num.length + this->cantidadthreads ) return false;
+        if( leido == this->numeros.length() + this->cantidadthreads ) return false;
 
         try{
         while (count != capacidad ) {
@@ -44,15 +49,15 @@ class Buffer {
 
         count = 0;
         for(int i=0;i<capacidad;i++) {
-            if( leido < this->num.length )
-                this->buffer[i] = Integer.parseInt( num[leido++] );
+            if( leido < this->numeros.length() )
+                this->buffer[i] = Integer.parseInt( numeros[leido++] );
             else{
                 this->buffer[i] = -1;
             }
         }
 
         this->cv.notify_all();
-        return leido < this->num.length + this->cantidadthreads;
+        return leido < this->numeros.length() + this->cantidadthreads;
     }
 
     //Traba cuando se saca y esta vacia
@@ -78,4 +83,6 @@ class Buffer {
         
         return buffer[count++];
     }
-}
+};
+
+#endif
