@@ -37,6 +37,8 @@ int main()
   std::filebuf fb;
   fb.open ("test.txt",std::ios::out);
   std::ostream os(&fb);
+  os.register_callback([](std::ios::event ev, std::ios_base& stream, int index){
+                            std::cout<<"Tocado";},0);
   os << "Test sentence\n";
   fb.close();
     _onexit(ejemplo1);
