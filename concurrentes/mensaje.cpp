@@ -1,6 +1,7 @@
 #include <map>
 #include <iostream>
 #include <sstream>
+#include <fstream>      // std::filebuf
 
 template<typename C>
 struct MessageExpression
@@ -33,9 +34,12 @@ int ejemplo1(){
 
 int main()
 {
-    std::ostream os(&std::basic_streambuf());
- 
-    onexit(ejemplo1);
+  std::filebuf fb;
+  fb.open ("test.txt",std::ios::out);
+  std::ostream os(&fb);
+  os << "Test sentence\n";
+  fb.close();
+    _onexit(ejemplo1);
 
 }
 
