@@ -1,6 +1,6 @@
 #include <thread>
 #include <iostream>
-
+#include <Boost.Test>
 //using namespace std;
 
 void do_some_work(){
@@ -14,6 +14,9 @@ class background_task
         {
             do_some_work();
             //do_something_else();
+        }
+        ~background_task(){
+            std::cout << "destructor" << std:: endl;
         }
 };
     
