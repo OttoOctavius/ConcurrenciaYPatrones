@@ -42,7 +42,7 @@ int main()
   os << "Test sentence\n";
   fb.close();
     _onexit(ejemplo1);
-
+    return 0;
 }
 
 //La unica forma de tener polimorfismo es por punteros void, o usar templates.
