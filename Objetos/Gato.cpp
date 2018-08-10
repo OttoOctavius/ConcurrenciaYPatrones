@@ -14,7 +14,7 @@ public:
 	const Gato & operator++ ();	
 	const Gato operator++(int x)
 	{
-		cout << "El argumento x es" << x << endl;
+		cout << "El argumento x es " << x << endl;
 		Gato temp(*this);
 		++suEdad;
 		return temp;
@@ -72,6 +72,8 @@ void compararfuncionalidadEdades(){
 	Gato otro = ++g;
 	cout << "El valor de otro: " << otro.ObtenerEdad();
 	cout << " y de g: " << g.ObtenerEdad() << endl;
+	otro++;
+	cout << "Son las mismas variables?:" << (( (otro.ObtenerEdad()) == (g.ObtenerEdad()))?"Si":"No") << endl;
 
 	cout << "Operador posterior" << endl;
 	otro = g++; //Pierdo el valor anterior de otro (copia)
