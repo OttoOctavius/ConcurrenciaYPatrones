@@ -1,4 +1,5 @@
 #include<iostream>
+#include<assert.h>
 
 using namespace std;
 
@@ -79,9 +80,11 @@ void compararfuncionalidadEdades(){
 }
 
 int main(){
-	Gato gato = Gato(3), sumaedades;
+	Gato gato = Gato(3); //,sumaEdades -> Si se lo instancia aqui se crea uno por defecto, y se destruye
+	//durante la asignacion
 	//Gato& otro = gato&;
-	sumaedades = gato.Sumar(gato);
+	Gato sumaedades = gato.Sumar(gato);
+	
 	cout << "Su edad con operador +:" << sumaedades.ObtenerEdad() << endl;
     compararfuncionalidadEdades();
 	return 0;

@@ -3,6 +3,9 @@
 #include <thread>
 #include <condition_variable>
 #include<iostream>
+#include <chrono>
+
+#define Nconsumidores 3
 
 std::queue<int32_t> the_queue;
 std::mutex the_mutex;
@@ -47,6 +50,11 @@ void push(int32_t const& data){
     the_cv.notify_one();
 }
 
+int producto=0;
+void consumer(std::string);
+void producer();
+void testConsumidorProductor();
+
 int main(){
     std::cout << "Numero de threas:" << std::thread::hardware_concurrency() << std::endl;
     std::vector<int32_t> vec{1,2,3,4};
@@ -63,4 +71,32 @@ int main(){
     //Si no se coloca dice que termino sin excepciones( aunque no halla terminado el thread)
 
     return 0;
+}
+
+void consumer(std::string nombre){
+    while(true){
+        {
+        std::unique_lock<std::mutex> guard(the_mutex);
+        the_cv.wait(guard, [](){return 0<producto;});
+        std::cout << nombre << " " << producto << std::endl;
+        }
+    std::this_thread::sleep_for(1s);
+    }
+}
+void producer(){
+    while(true){
+        {
+        std::lock_guard<std::mutex> guard(the_mutex);
+        producto++;
+        the_cv.notify_one();
+        }
+    std::this_thread::sleep_for(300ms);
+    }
+}
+
+void testConsumidorProductor(){
+    std::thread th_productor(producer);
+    th_productor.detach();
+
+    
 }
