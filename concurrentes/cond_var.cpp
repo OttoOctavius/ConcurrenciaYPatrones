@@ -98,5 +98,14 @@ void testConsumidorProductor(){
     std::thread th_productor(producer);
     th_productor.detach();
 
+    vector<thread> threads;
     
+    for(size_t i = 0; i < Nconsumidores; i++)
+    {
+        std::string name = "consumidor" + std::toString(i);
+        threads.push_back(std::thread(consumer,name));
+    }
+    for(auto& thread: threads)
+        thread.join();
+    return 0;
 }

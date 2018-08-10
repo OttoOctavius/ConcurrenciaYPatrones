@@ -75,7 +75,7 @@ void compararfuncionalidadEdades(){
 	otro++;
 	cout << "Son las mismas variables?:" << (( (otro.ObtenerEdad()) == (g.ObtenerEdad()))?"Si":"No") << endl;
 
-	cout << "Operador posterior" << endl;
+	cout << "::Operador posterior::" << endl;
 	otro = g++; //Pierdo el valor anterior de otro (copia)
 	cout << "El valor de otro: " << otro.ObtenerEdad();
 	cout << " y de g: " << g.ObtenerEdad() << endl;	
@@ -89,5 +89,6 @@ int main(){
 	
 	cout << "Su edad con operador +:" << sumaedades.ObtenerEdad() << endl;
     compararfuncionalidadEdades();
+	cout << "Se destruyeron los gatos de la funcion, y a continuacion los demas.." << endl;
 	return 0;
 }
