@@ -53,12 +53,7 @@ void push(int32_t const& data){
     the_cv.notify_one();
 }
 
-int producto=0;
-void consumer(std::string);
-void producer();
-void testConsumidorProductor();
-
-int main(){
+void testPushandPop(){
     std::cout << "Numero de threas:" << std::thread::hardware_concurrency() << std::endl;
     std::vector<int32_t> vec{1,2,3,4};
     Threadsito th(vec.capacity());
@@ -69,9 +64,18 @@ int main(){
     for(auto ite:vec){
         push(ite);
     }
-
-    t.join();
     //Si no se coloca dice que termino sin excepciones( aunque no halla terminado el thread)
+    t.join();
+}
+
+int producto=0;
+void consumer(std::string);
+void producer();
+void testConsumidorProductor();
+
+int main(){
+    //testPushandPop();
+    testConsumidorProductor();
 
     return 0;
 }
