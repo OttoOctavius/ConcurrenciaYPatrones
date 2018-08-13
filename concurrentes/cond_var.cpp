@@ -1,9 +1,12 @@
 #include <queue>
+#include <vector>
 #include <mutex>
 #include <thread>
 #include <condition_variable>
 #include<iostream>
+
 #include <chrono>
+#include <string>
 
 #define Nconsumidores 3
 
@@ -74,6 +77,7 @@ int main(){
 }
 
 void consumer(std::string nombre){
+    using namespace std::chrono_literals;
     while(true){
         {
         std::unique_lock<std::mutex> guard(the_mutex);
@@ -84,13 +88,14 @@ void consumer(std::string nombre){
     }
 }
 void producer(){
+    using namespace std::chrono_literals;
     while(true){
         {
         std::lock_guard<std::mutex> guard(the_mutex);
         producto++;
         the_cv.notify_one();
-        }
-    std::this_thread::sleep_for(300ms);
+        };
+        std::this_thread::sleep_for(300ms);
     }
 }
 
@@ -98,14 +103,13 @@ void testConsumidorProductor(){
     std::thread th_productor(producer);
     th_productor.detach();
 
-    vector<thread> threads;
+    std::vector<std::thread> threads;
     
     for(size_t i = 0; i < Nconsumidores; i++)
     {
-        std::string name = "consumidor" + std::toString(i);
+        std::string name = "consumidor" + std::to_string(i);
         threads.push_back(std::thread(consumer,name));
     }
     for(auto& thread: threads)
         thread.join();
-    return 0;
 }
