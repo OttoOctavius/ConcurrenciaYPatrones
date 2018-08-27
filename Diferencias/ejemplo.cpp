@@ -1,8 +1,8 @@
-#include <stdlib>
+#include <iostream>
 
 using namespace std;
 
-enum Distracciones = {telefonica,hermanos,padres};
+enum Distracciones {telefonica,hermanos,padres};
 
 typedef void interrupcion(Distracciones quien,string porque);
 
@@ -13,9 +13,9 @@ class Persona
 	 Persona(Persona &); // constructor de copia
 	 ~Persona(); // destructor
 
-	 estudiar(interrupcion i);
-	 comer(){ cout << "Comiendo" << endl;}
-	 descanzar(interrupcion i);
+	 void estudiar(interrupcion i);
+	 void comer(){ cout << "Comiendo" << endl;}
+	 void descanzar(interrupcion i);
  };
  
  Persona::Persona()
