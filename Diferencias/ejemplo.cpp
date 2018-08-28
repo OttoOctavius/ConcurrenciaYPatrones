@@ -33,15 +33,23 @@ class Persona
 	 cout << "Destructor de Persona...\n";
  }
 
+void estudiar(interrupcion i){
+	//TODO:random 1-4, nada o interrupcion
+	i(padres,"porque si");
+}
+
+void descanzar(interrupcion i){
+	//Ignorar todo
+}
+
+void llamadaMadre(Distracciones quien,string porque){
+	if(quien == padres)
+		cout << "llama a tu abuela!" << endl;
+}
+
 int main(int argc, char const *argv[])
 {
-	int *var = (int*) malloc(8*sizeof(int));
-
-	for(int contador=0;contador<8;contador++){
-		var[contador] = contador;
-		printf("%d,",var[contador]);
-	}
-
-	free(var);
+	Persona per;
+	per.estudiar(llamadaMadre);
 	return 0;
 }
