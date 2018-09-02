@@ -7,6 +7,7 @@ std::weak_ptr<int> gw;
     void observe()
     {
         std::cout << "use_count == " << gw.use_count() << ": ";
+
         if (auto spt = gw.lock()) { // Has to be copied into a shared_ptr before usage
         std::cout << *spt << "\n";
         }
@@ -41,12 +42,20 @@ std::weak_ptr<int> gw;
 
     }
 
+    void testpolimorfico(){
+        /*
+        std::pmr::polymorphic_allocator a1;
+        int* a = a1.allocate(1);
+        a1.construct(a, 7);
+        a1.deallocate(a, 1);*/
+    }
+
     int main(int argc, char* argv[]){
         test();
         {
         auto sp = std::make_shared<int>(42);
          std::cout << sp.use_count() << '\n';
-        gw = sp;
+        gw = sp; // probar con std::move(), no cambia el comportamiento, weakptr no contiene nada por si mismo?
          std::cout << sp.use_count() << '\n';   //No cuenta los usos del shared
         observe();
         }
