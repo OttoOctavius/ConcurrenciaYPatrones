@@ -7,6 +7,7 @@ using namespace std;
 void draw_line(int n,char ch);
 
 class Casino{
+    public:
     Casino(){
         cout<<"\n\n\n\n\t\tCASINO GAME\n\n\n\n";
         cout<<"\n\n\nEnter Your Name  :";
@@ -69,7 +70,7 @@ class Casino{
         while(ch=='Y'|| ch=='y');
     }
 
-
+    private:
     void rules()
     {
         cout<<"\n\n";
@@ -81,7 +82,7 @@ class Casino{
         cout<<endl;
     }
 
-    private:
+
     int balance
     string nombre;
 
@@ -98,6 +99,6 @@ void main()
     int balanceamt,amt,no,dice;
     char playername[80],ch;
     cout << flush;
-    Casino cas();
+    Casino cas;
     cas.play();
 }
