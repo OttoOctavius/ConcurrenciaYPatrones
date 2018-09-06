@@ -18,8 +18,8 @@ std::weak_ptr<int> gw;
     
     void test(){
         std::allocator<int> a1;
-        int* a = a1.allocate(1);  // unique_..= std::make_unique<int>(..) no funciona
-        a1.construct(a, 7);
+        auto a = std::make_unique<int>(a1.allocate(1));  // unique_..= std::make_unique<int>(..) no funciona
+        a1.construct(&a, 7);
         
         /*Dos formas de transformar el allocator a otro tipo, supuestamente
          deberia ahorrar espacio?*/
@@ -28,7 +28,7 @@ std::weak_ptr<int> gw;
         // same, but obtained by rebinding from the type of a1 via allocator_traits
         std::allocator_traits<decltype(a1)>::rebind_alloc<std::string> a2_2;
 
-        a1.deallocate(a, 1);
+        a1.deallocate(a.get(), 1);
         std::string* s = a2_2.allocate(2); // space for 2 strings
     
         a2_2.construct(s, "foo");

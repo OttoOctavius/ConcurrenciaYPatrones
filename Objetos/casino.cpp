@@ -11,7 +11,7 @@ class Casino{
     Casino(){
         cout<<"\n\n\n\n\t\tCASINO GAME\n\n\n\n";
         cout<<"\n\n\nEnter Your Name  :";
-        cin >> this->nombre;
+        getline(cin, nombre);
         cout<<"\n\n\Enter Deposit amount to play game :";
         cin>>balance;
     }
@@ -83,7 +83,7 @@ class Casino{
     }
 
 
-    int balance
+    int balance;
     string nombre;
 
     void draw_line(int n,char ch)
