@@ -1,6 +1,7 @@
 #include<iostream>
 #include<time.h>
 #include<string>
+#include<random>
 
 using namespace std;
 
@@ -25,11 +26,44 @@ class Casino{
     }
 
     void play(){
+        char ch;
         do{
             rules();
             cout<<"\n\nYour current balance is Rs."<<balance;
+            int amt = apuesta();            
+            int no = ingresar();
+            int dice=(rand()%12)+1;
+            if(dice==no)
+            {
+                cout<<"\n\nGood Luck!! You won Rs."<<amt*10;
+                balance=balance+amt*10;
+            }
+            else
+            {
+                cout<<"Bad Luck this time !! You lose Rs."<<amt;
+                balance=balance-amt;
+            }
+            cout<<"\n\nThe winning number was : "<<dice;
+
+            cout<<"\n\n\t"<<nombre<<" You have Rs. "<<balance<<endl;
+            cout<<"\n\n-->Do you want to play (y/n)? ";
+            cin>>ch;
+        }
+        while(ch=='Y'|| ch=='y');
+    }
+
+    int ingresar(){
+        int no;
+        do{
+                cout<<"Enter your lucky number to bet between 1 to 12 :";
+                cin>>no;
+            }
+            while(no<=0||no>12);
+        return no;
+    }
+    int apuesta(){
+        int amt;
             do{
-                int amt;
                 cout<<"\n\n"<< nombre <<" enter money to bet";
                 cin>>amt;
                 if(amt>balance)
@@ -37,37 +71,7 @@ class Casino{
                 else
                     break;
             }while(1);
-            
-            do
-            {
-                int no;
-                cout<<"Enter your lucky number to bet between 1 to 12 :";
-                cin>>no;
-                if(no<=0||no>12)
-                    cout<<"Please check the number!! should be between 1 to 12\n\nRe-enter data\n ";
-                else
-                    break;
-            }
-            while(1);
-            randomize();
-            dice=random(12)+1;
-            if(dice==no)
-            {
-                cout<<"\n\nGood Luck!! You won Rs."<<amt*10;
-                balanceamt=balanceamt+amt*10;
-            }
-            else
-            {
-                cout<<"Bad Luck this time !! You lose Rs."<<amt;
-                balanceamt=balanceamt-amt;
-            }
-            cout<<"\n\nThe winning number was : "<<dice;
-
-            cout<<"\n\n\t"<<playername<<" You have Rs. "<<balanceamt<<endl;
-            cout<<"\n\n-->Do you want to play (y/n)? ";
-            cin>>ch;
-        }
-        while(ch=='Y'|| ch=='y');
+        return amt;   
     }
 
     private:
@@ -94,11 +98,12 @@ class Casino{
 
 };
 
-void main()
+int main()
 {
     int balanceamt,amt,no,dice;
     char playername[80],ch;
     cout << flush;
     Casino cas;
     cas.play();
-}
+    return 0;
+}d
