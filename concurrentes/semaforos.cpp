@@ -33,15 +33,16 @@ void ACEROoACREO(){
         t2.join();
 }
 
+std::mutex  camilla;
+
 void donantes(int cantidad){
     std::thread realizarExtracciones( [cantidad](){
         int pacientes = cantidad;
         while(pacientes != 0){
             pacientes--;
-            /*
-            releaseCamilla()
-            sleep()
-            aquireCamilla()*/
+            camilla.unlock();
+            //sleep();
+            camilla.lock();
         }
     });
 
