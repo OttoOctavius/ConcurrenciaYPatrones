@@ -16,10 +16,10 @@ std::weak_ptr<int> gw;
         }
     }
     
-    void test(){
+    void testviejo(){
         std::allocator<int> a1;
         int* p = a1.allocate(1);
-        auto a = std::make_unique<int>(p); //no funciona
+        auto a = std::make_unique<int*>(p);
         a1.construct(p, 7);
         //Hacer algo
         a1.deallocate(p, 1);
@@ -43,16 +43,39 @@ std::weak_ptr<int> gw;
 
     }
 
+    void testviejo(){
+        std::allocator<int> a1;
+        int* p = a1.allocate(1);
+        auto a = std::make_unique<int*>(p);
+        //a1.construct(p, 7); deprecated 
+        //a* = 7;
+        //Hacer algo
+        a1.deallocate(p, 1);
+        //
+        std::allocator<std::string> a2_2;
+
+        std::string* s = a2_2.allocate(2); // space for 2 strings
+    
+        s[0] = "foo";
+        s[1] = "bar";
+    
+        std::cout << s[0] << ' ' << s[1] << '\n';
+    
+        a2_2.destroy(s);
+        a2_2.destroy(s + 1);
+        a2_2.deallocate(s, 2);        
+
+    }
+/*
     void testpolimorfico(){
-        /*
         std::pmr::polymorphic_allocator a1;
         int* a = a1.allocate(1);
         a1.construct(a, 7);
-        a1.deallocate(a, 1);*/
-    }
+        a1.deallocate(a, 1);
+    }*/
 
     int main(int argc, char* argv[]){
-        test();
+        testviejo();
         {
         auto sp = std::make_shared<int>(42);
          std::cout << sp.use_count() << '\n';
